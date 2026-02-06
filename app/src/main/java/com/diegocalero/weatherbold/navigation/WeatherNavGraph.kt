@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.diegocalero.weatherbold.presentation.search.SearchScreen
 import com.diegocalero.weatherbold.presentation.splash.SplashScreen
 
 @Composable
@@ -25,7 +26,16 @@ fun WeatherNavGraph(navController: NavHostController) {
         }
 
         composable(route = Route.Search.route) {
-            // TODO: SearchScreen
+            SearchScreen(
+                onLocationClick = { location ->
+                    navController.navigate(
+                        Route.Detail.createRouteByLatLng(
+                            latitude = location.lat,
+                            longitude = location.lon
+                        )
+                    )
+                }
+            )
         }
 
         composable(

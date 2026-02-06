@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Weather Bold</string>
     <string name="splash_subtitle">Your weather companion</string>
+
+    <!-- Search Screen -->
+    <string name="search_title">Weather</string>
+    <string name="search_subtitle">Search for a location to see the forecast</string>
+    <string name="search_placeholder">Search city or location…</string>
+    <string name="clear_search">Clear search</string>
+    <string name="search_idle_title">Discover the weather</string>
+    <string name="search_idle_message">Start typing to search for any city or location around the world</string>
+    <string name="search_error_icon">😕</string>
 </resources>
