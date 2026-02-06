@@ -8,6 +8,12 @@ val BoldRed = Color(0xFFE91E4C)
 val BoldGradientStart = Color(0xFFE91E4C)
 val BoldGradientEnd = Color(0xFF121E48)
 
+// Sunrise / Sunset
+val SunriseStart = Color(0xFFF97316)
+val SunriseEnd = Color(0xFFFBBF24)
+val SunsetStart = Color(0xFF8B5CF6)
+val SunsetEnd = Color(0xFFEC4899)
+
 // Light Theme
 val PrimaryLight = BoldNavy
 val SecondaryLight = BoldRed
