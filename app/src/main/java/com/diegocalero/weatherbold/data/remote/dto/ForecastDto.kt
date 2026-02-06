@@ -32,6 +32,7 @@ data class ForecastDto(
 data class ForecastDayDto(
     @SerializedName("date") val date: String,
     @SerializedName("day") val day: DayDto,
+    @SerializedName("astro") val astro: AstroDto,
     @SerializedName("hour") val hour: List<HourDto>
 )
 
@@ -43,6 +44,11 @@ data class DayDto(
     @SerializedName("maxwind_kph") val maxWindKph: Double,
     @SerializedName("daily_chance_of_rain") val chanceOfRain: Double,
     @SerializedName("condition") val condition: ConditionDto
+)
+
+data class AstroDto(
+    @SerializedName("sunrise") val sunrise: String,
+    @SerializedName("sunset") val sunset: String
 )
 
 data class HourDto(

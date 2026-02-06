@@ -25,7 +25,9 @@ data class ForecastDay(
     val maxWindKph: Double,
     val chanceOfRain: Double,
     val condition: WeatherCondition,
-    val hours: List<HourForecast>
+    val hours: List<HourForecast>,
+    val sunrise: String,
+    val sunset: String
 )
 
 data class HourForecast(

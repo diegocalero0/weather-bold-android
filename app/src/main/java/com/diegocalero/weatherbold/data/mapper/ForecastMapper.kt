@@ -41,7 +41,9 @@ fun ForecastDayDto.toDomain(): ForecastDay {
         maxWindKph = day.maxWindKph,
         chanceOfRain = day.chanceOfRain,
         condition = day.condition.toDomain(),
-        hours = hour.map { it.toDomain() }
+        hours = hour.map { it.toDomain() },
+        sunrise = astro.sunrise,
+        sunset = astro.sunset
     )
 }
 

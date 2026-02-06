@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.diegocalero.weatherbold.presentation.detail.DetailScreen
 import com.diegocalero.weatherbold.presentation.search.SearchScreen
 import com.diegocalero.weatherbold.presentation.splash.SplashScreen
 
@@ -45,7 +46,10 @@ fun WeatherNavGraph(navController: NavHostController) {
             )
         ) { backStackEntry ->
             val query = backStackEntry.arguments?.getString("query").orEmpty()
-            // TODO: DetailScreen(query)
+            DetailScreen(
+                query = query,
+                onBackClick = { navController.popBackStack() }
+            )
         }
     }
 }

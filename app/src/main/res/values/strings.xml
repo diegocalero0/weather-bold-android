@@ -10,4 +10,18 @@
     <string name="search_idle_title">Discover the weather</string>
     <string name="search_idle_message">Start typing to search for any city or location around the world</string>
     <string name="search_error_icon">😕</string>
+
+    <!-- Detail Screen -->
+    <string name="back">Back</string>
+    <string name="feels_like">Feels like</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
+    <string name="rain">Rain</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="today_hourly">Today\'s Forecast</string>
+    <string name="next_days">Next Days</string>
+    <string name="expand">Expand</string>
+    <string name="collapse">Collapse</string>
+    <string name="retry">Retry</string>
 </resources>

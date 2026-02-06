@@ -1,0 +1,193 @@
+package com.diegocalero.weatherbold.presentation.detail.components
+
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import com.diegocalero.weatherbold.R
+import com.diegocalero.weatherbold.domain.model.ForecastDay
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
+import java.util.Locale
+
+@Composable
+fun ForecastDayAccordion(
+    forecastDay: ForecastDay,
+    isExpanded: Boolean,
+    onToggle: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier.fillMaxWidth(),
+        onClick = onToggle,
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Column {
+            DayHeader(
+                forecastDay = forecastDay,
+                isExpanded = isExpanded
+            )
+
+            AnimatedVisibility(
+                visible = isExpanded,
+                enter = expandVertically(),
+                exit = shrinkVertically()
+            ) {
+                Column(
+                    modifier = Modifier.padding(bottom = 12.dp)
+                ) {
+                    DayDetails(forecastDay = forecastDay)
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    HourlyForecastRow(hours = forecastDay.hours)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun DayHeader(
+    forecastDay: ForecastDay,
+    isExpanded: Boolean
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        AsyncImage(
+            model = forecastDay.condition.iconUrl,
+            contentDescription = forecastDay.condition.text,
+            modifier = Modifier.size(40.dp)
+        )
+
+        Spacer(modifier = Modifier.width(12.dp))
+
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = formatDayName(forecastDay.date),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+                text = forecastDay.condition.text,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+            )
+        }
+
+        Column(horizontalAlignment = Alignment.End) {
+            Text(
+                text = "${forecastDay.avgTempC.toInt()}°",
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+                text = "${forecastDay.minTempC.toInt()}° / ${forecastDay.maxTempC.toInt()}°",
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+            )
+        }
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        Icon(
+            imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+            contentDescription = if (isExpanded) stringResource(id = R.string.collapse) else stringResource(id = R.string.expand),
+            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+        )
+    }
+}
+
+@Composable
+private fun DayDetails(forecastDay: ForecastDay) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        DetailChip(
+            label = stringResource(id = R.string.humidity),
+            value = "${forecastDay.avgHumidity.toInt()}%"
+        )
+        DetailChip(
+            label = stringResource(id = R.string.wind),
+            value = "${forecastDay.maxWindKph.toInt()} km/h"
+        )
+        DetailChip(
+            label = stringResource(id = R.string.rain),
+            value = "${forecastDay.chanceOfRain.toInt()}%"
+        )
+    }
+}
+
+@Composable
+private fun DetailChip(
+    label: String,
+    value: String
+) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = value,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.primary
+        )
+    }
+}
+
+private fun formatDayName(dateString: String): String {
+    return try {
+        val date = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE)
+        val today = LocalDate.now()
+        when (date) {
+            today -> "Today"
+            today.plusDays(1) -> "Tomorrow"
+            else -> date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
+                .replaceFirstChar { it.uppercase() }
+        }
+    } catch (e: Exception) {
+        dateString
+    }
+}
