@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.WeatherBold" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.WeatherBold" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/bold_navy</item>
+        <item name="android:navigationBarColor">@color/bold_navy</item>
+    </style>
+
+    <style name="Theme.WeatherBold.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/bold_navy</item>
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+        <item name="postSplashScreenTheme">@style/Theme.WeatherBold</item>
+    </style>
 </resources>

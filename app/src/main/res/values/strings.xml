@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Weather Bold</string>
+    <string name="splash_subtitle">Your weather companion</string>
 </resources>

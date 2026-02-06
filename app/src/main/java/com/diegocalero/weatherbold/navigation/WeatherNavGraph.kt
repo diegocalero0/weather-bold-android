@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.diegocalero.weatherbold.presentation.splash.SplashScreen
 
 @Composable
 fun WeatherNavGraph(navController: NavHostController) {
@@ -14,7 +15,13 @@ fun WeatherNavGraph(navController: NavHostController) {
         startDestination = Route.Splash.route
     ) {
         composable(route = Route.Splash.route) {
-            // TODO: SplashScreen
+            SplashScreen(
+                onSplashFinished = {
+                    navController.navigate(Route.Search.route) {
+                        popUpTo(Route.Splash.route) { inclusive = true }
+                    }
+                }
+            )
         }
 
         composable(route = Route.Search.route) {
