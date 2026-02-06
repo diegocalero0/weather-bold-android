@@ -10,13 +10,15 @@ interface WeatherApiService {
     @GET("search.json")
     suspend fun searchLocations(
         @Query("key") apiKey: String,
-        @Query("q") query: String
+        @Query("q") query: String,
+        @Query("lang") lang: String? = null
     ): List<LocationDto>
 
     @GET("forecast.json")
     suspend fun getForecast(
         @Query("key") apiKey: String,
         @Query("q") query: String,
-        @Query("days") days: Int
+        @Query("days") days: Int,
+        @Query("lang") lang: String? = null
     ): ForecastResponseDto
 }

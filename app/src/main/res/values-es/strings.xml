@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Weather Bold</string>
+    <string name="splash_subtitle">Tu compañero del clima</string>
+
+    <!-- Search Screen -->
+    <string name="search_title">Clima</string>
+    <string name="search_subtitle">Busca una ubicación para ver el pronóstico</string>
+    <string name="search_placeholder">Buscar ciudad o ubicación…</string>
+    <string name="clear_search">Limpiar búsqueda</string>
+    <string name="search_idle_title">Descubre el clima</string>
+    <string name="search_idle_message">Comienza a escribir para buscar cualquier ciudad o ubicación en el mundo</string>
+
+    <!-- Detail Screen -->
+    <string name="back">Volver</string>
+    <string name="today">Hoy</string>
+    <string name="tomorrow">Mañana</string>
+    <string name="feels_like">Sensación</string>
+    <string name="humidity">Humedad</string>
+    <string name="wind">Viento</string>
+    <string name="rain">Lluvia</string>
+    <string name="sunrise">Amanecer</string>
+    <string name="sunset">Atardecer</string>
+    <string name="today_hourly">Pronóstico de hoy</string>
+    <string name="next_days">Próximos días</string>
+    <string name="expand">Expandir</string>
+    <string name="collapse">Contraer</string>
+    <string name="retry">Reintentar</string>
+</resources>

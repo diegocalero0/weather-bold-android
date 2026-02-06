@@ -13,6 +13,8 @@
 
     <!-- Detail Screen -->
     <string name="back">Back</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
     <string name="feels_like">Feels like</string>
     <string name="humidity">Humidity</string>
     <string name="wind">Wind</string>

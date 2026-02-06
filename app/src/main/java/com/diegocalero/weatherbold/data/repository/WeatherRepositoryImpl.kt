@@ -8,17 +8,22 @@ import com.diegocalero.weatherbold.data.remote.WeatherApiService
 import com.diegocalero.weatherbold.domain.model.Forecast
 import com.diegocalero.weatherbold.domain.model.Location
 import com.diegocalero.weatherbold.domain.repository.WeatherRepository
+import java.util.Locale
 import javax.inject.Inject
 
 class WeatherRepositoryImpl @Inject constructor(
     private val apiService: WeatherApiService
 ) : WeatherRepository {
 
+    private val lang: String?
+        get() = Locale.getDefault().language.takeIf { it == "es" }
+
     override suspend fun searchLocations(query: String): Result<List<Location>> {
         return safeApiCall {
             apiService.searchLocations(
                 apiKey = BuildConfig.WEATHER_API_KEY,
-                query = query
+                query = query,
+                lang = lang
             ).map { it.toDomain() }
         }
     }
@@ -28,7 +33,8 @@ class WeatherRepositoryImpl @Inject constructor(
             apiService.getForecast(
                 apiKey = BuildConfig.WEATHER_API_KEY,
                 query = query,
-                days = days
+                days = days,
+                lang = lang
             ).toDomain()
         }
     }

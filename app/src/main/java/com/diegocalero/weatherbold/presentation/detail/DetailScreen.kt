@@ -1,5 +1,6 @@
 package com.diegocalero.weatherbold.presentation.detail
 
+import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -29,12 +30,11 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import android.content.res.Configuration
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -47,8 +47,6 @@ import com.diegocalero.weatherbold.R
 import com.diegocalero.weatherbold.core.ui.UiState
 import com.diegocalero.weatherbold.core.ui.theme.BoldGradientEnd
 import com.diegocalero.weatherbold.core.ui.theme.BoldGradientStart
-import com.diegocalero.weatherbold.core.ui.theme.BoldNavy
-import com.diegocalero.weatherbold.core.ui.theme.WeatherBoldTheme
 import com.diegocalero.weatherbold.domain.model.Forecast
 import com.diegocalero.weatherbold.presentation.detail.components.ForecastDayAccordion
 import com.diegocalero.weatherbold.presentation.detail.components.HourlyForecastRow
@@ -205,7 +203,7 @@ private fun CurrentWeatherHeader(forecast: Forecast) {
             .fillMaxWidth()
             .background(
                 brush = Brush.verticalGradient(
-                    colors = listOf(BoldGradientStart, BoldGradientEnd).reversed()
+                    colors = listOf(BoldGradientStart, BoldGradientEnd)
                 ),
                 shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
             )
@@ -247,15 +245,17 @@ private fun TemperatureInfo(
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
+            modifier = Modifier.weight(1f),
             text = "${forecast.currentWeather.tempC.toInt()}°",
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.White
+            color = Color.White,
+            textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.width(16.dp))
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
             AsyncImage(
                 model = forecast.currentWeather.condition.iconUrl,
                 contentDescription = forecast.currentWeather.condition.text,
@@ -264,7 +264,8 @@ private fun TemperatureInfo(
             Text(
                 text = forecast.currentWeather.condition.text,
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.White.copy(alpha = 0.9f)
+                color = Color.White.copy(alpha = 0.9f),
+                textAlign = TextAlign.Center
             )
         }
     }
@@ -355,7 +356,7 @@ private fun ErrorContent(
             modifier = Modifier.padding(32.dp)
         ) {
             Text(
-                text = "😕",
+                text = stringResource(id = R.string.search_error_icon),
                 style = MaterialTheme.typography.headlineLarge
             )
             Spacer(modifier = Modifier.height(16.dp))

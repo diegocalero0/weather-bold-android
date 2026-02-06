@@ -43,14 +43,14 @@ fun SunriseSunsetRow(
             label = stringResource(id = R.string.sunrise),
             time = sunrise,
             icon = Icons.Default.KeyboardArrowUp,
-            iconTint = BoldGradientEnd,
+            iconTint = BoldGradientStart,
             modifier = Modifier.weight(1f)
         )
         SunCard(
             label = stringResource(id = R.string.sunset),
             time = sunset,
             icon = Icons.Default.KeyboardArrowDown,
-            iconTint = BoldGradientStart,
+            iconTint = BoldGradientEnd,
             modifier = Modifier.weight(1f)
         )
     }

@@ -5,8 +5,8 @@ import androidx.compose.ui.graphics.Color
 // Bold Brand Colors
 val BoldNavy = Color(0xFF121E48)
 val BoldRed = Color(0xFFE91E4C)
-val BoldGradientStart = Color(0xFF121E48)
-val BoldGradientEnd = Color(0xFFE91E4C)
+val BoldGradientStart = Color(0xFFE91E4C)
+val BoldGradientEnd = Color(0xFF121E48)
 
 // Light Theme
 val PrimaryLight = BoldNavy

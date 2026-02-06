@@ -29,11 +29,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.diegocalero.weatherbold.R
+import com.diegocalero.weatherbold.core.formatter.formatDayName
 import com.diegocalero.weatherbold.domain.model.ForecastDay
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
-import java.util.Locale
 
 @Composable
 fun ForecastDayAccordion(
@@ -97,7 +94,11 @@ private fun DayHeader(
 
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = formatDayName(forecastDay.date),
+                text = formatDayName(
+                    dateString = forecastDay.date,
+                    todayLabel = stringResource(id = R.string.today),
+                    tomorrowLabel = stringResource(id = R.string.tomorrow)
+                ),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = MaterialTheme.colorScheme.onSurface
@@ -177,17 +178,3 @@ private fun DetailChip(
     }
 }
 
-private fun formatDayName(dateString: String): String {
-    return try {
-        val date = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE)
-        val today = LocalDate.now()
-        when (date) {
-            today -> "Today"
-            today.plusDays(1) -> "Tomorrow"
-            else -> date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
-                .replaceFirstChar { it.uppercase() }
-        }
-    } catch (e: Exception) {
-        dateString
-    }
-}
