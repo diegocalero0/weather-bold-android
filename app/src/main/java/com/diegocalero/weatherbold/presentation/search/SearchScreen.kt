@@ -159,9 +159,6 @@ private fun SearchBar(
                     .semantics {
                         contentDescription = searchFieldDesc
                     },
-            label = {
-                Text(text = stringResource(id = R.string.search_label))
-            },
             placeholder = {
                 Text(text = stringResource(id = R.string.search_placeholder))
             },
