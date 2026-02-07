@@ -41,6 +41,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -144,7 +145,7 @@ private fun SearchBar(
         OutlinedTextField(
             value = query,
             onValueChange = onQueryChanged,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().testTag("search_text_field"),
             placeholder = {
                 Text(text = stringResource(id = R.string.search_placeholder))
             },
@@ -294,7 +295,8 @@ private fun LocationItem(
     Card(
         modifier =
             Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .testTag("location_item"),
         shape = RoundedCornerShape(12.dp),
         colors =
             CardDefaults.cardColors(
