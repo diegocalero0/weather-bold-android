@@ -30,10 +30,7 @@ fun WeatherNavGraph(navController: NavHostController) {
             SearchScreen(
                 onLocationClick = { location ->
                     navController.navigate(
-                        Route.Detail.createRouteByLatLng(
-                            latitude = location.lat,
-                            longitude = location.lon
-                        )
+                        Route.Detail.createRouteByLatLng(location)
                     )
                 }
             )
@@ -42,11 +39,14 @@ fun WeatherNavGraph(navController: NavHostController) {
         composable(
             route = Route.Detail.route,
             arguments = listOf(
-                navArgument("query") { type = NavType.StringType }
+                navArgument("query") { type = NavType.StringType },
+                navArgument("locationName") { type = NavType.StringType }
             )
         ) { backStackEntry ->
             val query = backStackEntry.arguments?.getString("query").orEmpty()
+            val locationName = backStackEntry.arguments?.getString("locationName").orEmpty()
             DetailScreen(
+                locationName = locationName,
                 query = query,
                 onBackClick = { navController.popBackStack() }
             )

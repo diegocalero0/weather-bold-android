@@ -38,6 +38,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -55,6 +56,7 @@ import com.diegocalero.weatherbold.presentation.detail.components.SunriseSunsetR
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(
+    locationName: String,
     query: String,
     onBackClick: () -> Unit,
     viewModel: DetailViewModel = hiltViewModel()
@@ -70,14 +72,16 @@ fun DetailScreen(
                         val forecast = (uiState as UiState.Success<Forecast>).data
                         Column {
                             Text(
-                                text = forecast.locationName,
+                                text = locationName,
                                 style = MaterialTheme.typography.headlineMedium,
                                 fontWeight = FontWeight.Bold,
-                                color = Color.White
+                                color = Color.White,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
                             )
 
                             Text(
-                                text = "${forecast.region}, ${forecast.country}",
+                                text = "${forecast.locationName} - ${forecast.region}, ${forecast.country}",
                                 style = MaterialTheme.typography.bodyMedium,
                                 color = Color.White.copy(alpha = 0.7f)
                             )
