@@ -148,6 +148,7 @@ private fun SearchBar(
                 )
                 .padding(horizontal = 24.dp, vertical = 20.dp),
     ) {
+        val searchFieldDesc = stringResource(id = R.string.search_field_description)
         OutlinedTextField(
             value = query,
             onValueChange = onQueryChanged,
@@ -156,7 +157,7 @@ private fun SearchBar(
                     .fillMaxWidth()
                     .testTag("search_text_field")
                     .semantics {
-                        contentDescription = "Campo de búsqueda de ciudades"
+                        contentDescription = searchFieldDesc
                     },
             label = {
                 Text(text = stringResource(id = R.string.search_label))
@@ -257,13 +258,14 @@ private fun IdleContent() {
 
 @Composable
 private fun LoadingContent() {
+    val searchingMessage = stringResource(id = R.string.searching_locations)
     Box(
         modifier =
             Modifier
                 .fillMaxSize()
                 .semantics {
                     liveRegion = LiveRegionMode.Polite
-                    contentDescription = "Buscando ubicaciones"
+                    contentDescription = searchingMessage
                 },
         contentAlignment = Alignment.Center,
     ) {

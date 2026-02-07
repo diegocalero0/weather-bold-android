@@ -33,6 +33,13 @@
     <string name="error_loading">Error al cargar</string>
     <string name="current_weather_summary">Clima actual: %1$d grados, %2$s. Se siente como %3$d grados, Humedad %4$d por ciento, Viento %5$d kilómetros por hora</string>
     <string name="weather_condition_temp">%1$s, %2$d grados</string>
+    <string name="search_field_description">Campo de búsqueda de ciudades</string>
+    <string name="searching_locations">Buscando ubicaciones</string>
+    <string name="hourly_forecast_scroll">Pronóstico por hora, desliza horizontalmente para ver más horas</string>
+    <string name="forecast_details_header">Detalles del pronóstico</string>
+    <string name="avg_temp">Temperatura promedio</string>
+    <string name="min_temp">Mínima</string>
+    <string name="max_temp">Máxima</string>
     <string name="degrees">grados</string>
     <string name="percent">por ciento</string>
     <string name="kilometers_per_hour">kilómetros por hora</string>

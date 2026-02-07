@@ -54,6 +54,19 @@ fun ForecastDayAccordion(
         )
     val expandLabel = stringResource(id = R.string.expand)
     val collapseLabel = stringResource(id = R.string.collapse)
+    val avgTempLabel = stringResource(id = R.string.avg_temp)
+    val minTempLabel = stringResource(id = R.string.min_temp)
+    val maxTempLabel = stringResource(id = R.string.max_temp)
+    val degreesLabel = stringResource(id = R.string.degrees)
+
+    val dayAccordionContentDescription =
+        buildString {
+            append(dayName)
+            append(", ${forecastDay.condition.text}, ")
+            append("$avgTempLabel ${forecastDay.avgTempC.toInt()} $degreesLabel, ")
+            append("$minTempLabel ${forecastDay.minTempC.toInt()}, ")
+            append("$maxTempLabel ${forecastDay.maxTempC.toInt()} $degreesLabel")
+        }
 
     Card(
         modifier =
@@ -62,13 +75,7 @@ fun ForecastDayAccordion(
                 .testTag("forecast_day_accordion")
                 .semantics(mergeDescendants = true) {
                     stateDescription = if (isExpanded) expandLabel else collapseLabel
-                    contentDescription =
-                        buildString {
-                            append(dayName)
-                            append(", ${forecastDay.condition.text}")
-                            append(", Temperatura promedio ${forecastDay.avgTempC.toInt()} grados")
-                            append(", Mínima ${forecastDay.minTempC.toInt()}, Máxima ${forecastDay.maxTempC.toInt()} grados")
-                        }
+                    contentDescription = dayAccordionContentDescription
                     role = Role.Button
                 },
         onClick = onToggle,
@@ -170,6 +177,7 @@ private fun DayHeader(
 
 @Composable
 private fun DayDetails(forecastDay: ForecastDay) {
+    val detailsHeader = stringResource(id = R.string.forecast_details_header)
     Row(
         modifier =
             Modifier
@@ -177,7 +185,7 @@ private fun DayDetails(forecastDay: ForecastDay) {
                 .padding(horizontal = 16.dp)
                 .semantics {
                     heading()
-                    contentDescription = "Detalles del pronóstico"
+                    contentDescription = detailsHeader
                 },
         horizontalArrangement = Arrangement.SpaceEvenly,
     ) {

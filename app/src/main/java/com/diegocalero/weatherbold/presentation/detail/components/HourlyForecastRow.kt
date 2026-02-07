@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.ScrollAxisRange
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.horizontalScrollAxisRange
@@ -25,6 +26,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.diegocalero.weatherbold.R
 import com.diegocalero.weatherbold.core.formatter.formatHour
 import com.diegocalero.weatherbold.domain.model.HourForecast
 
@@ -33,11 +35,12 @@ fun HourlyForecastRow(
     hours: List<HourForecast>,
     modifier: Modifier = Modifier,
 ) {
+    val scrollDescription = stringResource(id = R.string.hourly_forecast_scroll)
     LazyRow(
         modifier =
             modifier.semantics {
                 horizontalScrollAxisRange = ScrollAxisRange(value = { 0f }, maxValue = { 1f })
-                contentDescription = "Pronóstico por hora, desliza horizontalmente para ver más horas"
+                contentDescription = scrollDescription
             },
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),

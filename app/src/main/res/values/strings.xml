@@ -33,6 +33,13 @@
     <string name="error_loading">Error loading</string>
     <string name="current_weather_summary">Current weather: %1$d degrees, %2$s. Feels like %3$d degrees, Humidity %4$d percent, Wind %5$d kilometers per hour</string>
     <string name="weather_condition_temp">%1$s, %2$d degrees</string>
+    <string name="search_field_description">City search field</string>
+    <string name="searching_locations">Searching locations</string>
+    <string name="hourly_forecast_scroll">Hourly forecast, swipe horizontally to see more hours</string>
+    <string name="forecast_details_header">Forecast details</string>
+    <string name="avg_temp">Average temperature</string>
+    <string name="min_temp">Minimum</string>
+    <string name="max_temp">Maximum</string>
     <string name="degrees">degrees</string>
     <string name="percent">percent</string>
     <string name="kilometers_per_hour">kilometers per hour</string>
