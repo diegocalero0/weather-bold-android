@@ -9,6 +9,7 @@
     <string name="clear_search">Limpiar búsqueda</string>
     <string name="search_idle_title">Descubre el clima</string>
     <string name="search_idle_message">Comienza a escribir para buscar cualquier ciudad o ubicación en el mundo</string>
+    <string name="search_error_icon">😕</string>
 
     <!-- Detail Screen -->
     <string name="back">Volver</string>
@@ -25,4 +26,9 @@
     <string name="expand">Expandir</string>
     <string name="collapse">Contraer</string>
     <string name="retry">Reintentar</string>
+
+    <!-- Accessibility labels -->
+    <string name="search_label">Buscar ciudad</string>
+    <string name="loading_weather">Cargando pronóstico del clima</string>
+    <string name="error_loading">Error al cargar</string>
 </resources>

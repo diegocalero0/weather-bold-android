@@ -26,4 +26,9 @@
     <string name="expand">Expand</string>
     <string name="collapse">Collapse</string>
     <string name="retry">Retry</string>
+
+    <!-- Accessibility labels -->
+    <string name="search_label">Search city</string>
+    <string name="loading_weather">Loading weather forecast</string>
+    <string name="error_loading">Error loading</string>
 </resources>

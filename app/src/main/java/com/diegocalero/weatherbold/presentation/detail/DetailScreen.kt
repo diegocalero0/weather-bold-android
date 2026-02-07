@@ -36,6 +36,11 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -208,6 +213,9 @@ private fun CurrentWeatherHeader(forecast: Forecast) {
         modifier =
             Modifier
                 .fillMaxWidth()
+                .semantics(mergeDescendants = false) {
+                    heading()
+                }
                 .background(
                     brush =
                         Brush.verticalGradient(
@@ -253,7 +261,12 @@ private fun TemperatureInfo(
         horizontalArrangement = Arrangement.Center,
     ) {
         Text(
-            modifier = Modifier.weight(1f),
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .semantics {
+                        contentDescription = "Temperatura actual: ${forecast.currentWeather.tempC.toInt()} grados celsius"
+                    },
             text = "${forecast.currentWeather.tempC.toInt()}°",
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
@@ -308,11 +321,17 @@ private fun WeatherInfoChip(
     label: String,
     value: String,
 ) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier =
+            Modifier.semantics(mergeDescendants = true) {
+                contentDescription = "$label: $value"
+            },
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         Text(
             text = label,
             style = MaterialTheme.typography.labelSmall,
-            color = Color.White.copy(alpha = 0.6f),
+            color = Color.White.copy(alpha = 0.75f),
         )
         Spacer(modifier = Modifier.height(2.dp))
         Text(
@@ -340,8 +359,15 @@ private fun SectionTitle(
 
 @Composable
 private fun LoadingContent() {
+    val loadingMessage = stringResource(id = R.string.loading_weather)
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .semantics {
+                    liveRegion = LiveRegionMode.Polite
+                    contentDescription = loadingMessage
+                },
         contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator(
@@ -355,13 +381,24 @@ private fun ErrorContent(
     message: String,
     onRetry: () -> Unit,
 ) {
+    val errorLabel = stringResource(id = R.string.error_loading)
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .semantics {
+                    liveRegion = LiveRegionMode.Assertive
+                },
         contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(32.dp),
+            modifier =
+                Modifier
+                    .padding(32.dp)
+                    .semantics(mergeDescendants = true) {
+                        contentDescription = "$errorLabel: $message"
+                    },
         ) {
             Text(
                 text = stringResource(id = R.string.search_error_icon),

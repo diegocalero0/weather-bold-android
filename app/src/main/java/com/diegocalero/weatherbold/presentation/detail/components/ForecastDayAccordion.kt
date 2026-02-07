@@ -26,6 +26,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -40,8 +46,31 @@ fun ForecastDayAccordion(
     onToggle: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val dayName =
+        formatDayName(
+            dateString = forecastDay.date,
+            todayLabel = stringResource(id = R.string.today),
+            tomorrowLabel = stringResource(id = R.string.tomorrow),
+        )
+    val expandLabel = stringResource(id = R.string.expand)
+    val collapseLabel = stringResource(id = R.string.collapse)
+
     Card(
-        modifier = modifier.fillMaxWidth().testTag("forecast_day_accordion"),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .testTag("forecast_day_accordion")
+                .semantics(mergeDescendants = true) {
+                    stateDescription = if (isExpanded) expandLabel else collapseLabel
+                    contentDescription =
+                        buildString {
+                            append(dayName)
+                            append(", ${forecastDay.condition.text}")
+                            append(", Temperatura promedio ${forecastDay.avgTempC.toInt()} grados")
+                            append(", Mínima ${forecastDay.minTempC.toInt()}, Máxima ${forecastDay.maxTempC.toInt()} grados")
+                        }
+                    role = Role.Button
+                },
         onClick = onToggle,
         shape = RoundedCornerShape(12.dp),
         colors =
@@ -145,7 +174,11 @@ private fun DayDetails(forecastDay: ForecastDay) {
         modifier =
             Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp)
+                .semantics {
+                    heading()
+                    contentDescription = "Detalles del pronóstico"
+                },
         horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
         DetailChip(
@@ -168,7 +201,13 @@ private fun DetailChip(
     label: String,
     value: String,
 ) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier =
+            Modifier.semantics(mergeDescendants = true) {
+                contentDescription = "$label: $value"
+            },
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
         Text(
             text = label,
             style = MaterialTheme.typography.labelSmall,

@@ -19,6 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.diegocalero.weatherbold.R
@@ -37,7 +40,11 @@ fun SunriseSunsetRow(
         modifier =
             modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp),
+                .padding(horizontal = 16.dp)
+                .semantics(mergeDescendants = false) {
+                    heading()
+                    contentDescription = "Información de amanecer y atardecer"
+                },
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         SunCard(
@@ -63,7 +70,10 @@ private fun SunCard(
     modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = modifier,
+        modifier =
+            modifier.semantics(mergeDescendants = true) {
+                contentDescription = "$label a las $time"
+            },
         shape = RoundedCornerShape(12.dp),
         colors =
             CardDefaults.cardColors(

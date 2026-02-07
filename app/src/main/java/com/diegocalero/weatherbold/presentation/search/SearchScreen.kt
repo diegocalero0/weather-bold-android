@@ -43,6 +43,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -145,7 +151,16 @@ private fun SearchBar(
         OutlinedTextField(
             value = query,
             onValueChange = onQueryChanged,
-            modifier = Modifier.fillMaxWidth().testTag("search_text_field"),
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .testTag("search_text_field")
+                    .semantics {
+                        contentDescription = "Campo de búsqueda de ciudades"
+                    },
+            label = {
+                Text(text = stringResource(id = R.string.search_label))
+            },
             placeholder = {
                 Text(text = stringResource(id = R.string.search_placeholder))
             },
@@ -207,11 +222,21 @@ private fun SearchContent(
 @Composable
 private fun IdleContent() {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .semantics {
+                    liveRegion = LiveRegionMode.Polite
+                },
         contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
+            modifier =
+                Modifier.semantics {
+                    contentDescription =
+                        "Escribe el nombre de una ciudad en el campo de búsqueda para ver resultados"
+                },
         ) {
             Icon(
                 imageVector = Icons.Default.Search,
@@ -233,7 +258,13 @@ private fun IdleContent() {
 @Composable
 private fun LoadingContent() {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .semantics {
+                    liveRegion = LiveRegionMode.Polite
+                    contentDescription = "Buscando ubicaciones"
+                },
         contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator(
@@ -244,8 +275,15 @@ private fun LoadingContent() {
 
 @Composable
 private fun ErrorContent(message: String) {
+    val errorLabel = stringResource(id = R.string.error_loading)
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .semantics {
+                    liveRegion = LiveRegionMode.Assertive
+                    contentDescription = "$errorLabel: $message"
+                },
         contentAlignment = Alignment.Center,
     ) {
         Column(
@@ -296,7 +334,11 @@ private fun LocationItem(
         modifier =
             Modifier
                 .fillMaxWidth()
-                .testTag("location_item"),
+                .testTag("location_item")
+                .semantics(mergeDescendants = true) {
+                    contentDescription = "${location.name}, ${location.country}"
+                    role = Role.Button
+                },
         shape = RoundedCornerShape(12.dp),
         colors =
             CardDefaults.cardColors(

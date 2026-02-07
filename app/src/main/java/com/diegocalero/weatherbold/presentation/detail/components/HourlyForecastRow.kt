@@ -18,6 +18,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.ScrollAxisRange
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.horizontalScrollAxisRange
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -30,7 +34,11 @@ fun HourlyForecastRow(
     modifier: Modifier = Modifier,
 ) {
     LazyRow(
-        modifier = modifier,
+        modifier =
+            modifier.semantics {
+                horizontalScrollAxisRange = ScrollAxisRange(value = { 0f }, maxValue = { 1f })
+                contentDescription = "Pronóstico por hora, desliza horizontalmente para ver más horas"
+            },
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -46,6 +54,11 @@ fun HourlyForecastRow(
 @Composable
 private fun HourItem(hour: HourForecast) {
     Card(
+        modifier =
+            Modifier.semantics(mergeDescendants = true) {
+                contentDescription =
+                    "${formatHour(hour.time)}, ${hour.condition.text}, ${hour.tempC.toInt()} grados celsius"
+            },
         shape = RoundedCornerShape(12.dp),
         colors =
             CardDefaults.cardColors(
