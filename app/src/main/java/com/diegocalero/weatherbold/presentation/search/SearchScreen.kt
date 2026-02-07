@@ -291,12 +291,14 @@ private fun ErrorContent(message: String) {
             Text(
                 text = stringResource(id = R.string.search_error_icon),
                 style = MaterialTheme.typography.headlineLarge,
+                textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = message,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.error,
+                textAlign = TextAlign.Center
             )
         }
     }
