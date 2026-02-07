@@ -31,4 +31,9 @@
     <string name="search_label">Search city</string>
     <string name="loading_weather">Loading weather forecast</string>
     <string name="error_loading">Error loading</string>
+    <string name="current_weather_summary">Current weather: %1$d degrees, %2$s. Feels like %3$d degrees, Humidity %4$d percent, Wind %5$d kilometers per hour</string>
+    <string name="weather_condition_temp">%1$s, %2$d degrees</string>
+    <string name="degrees">degrees</string>
+    <string name="percent">percent</string>
+    <string name="kilometers_per_hour">kilometers per hour</string>
 </resources>

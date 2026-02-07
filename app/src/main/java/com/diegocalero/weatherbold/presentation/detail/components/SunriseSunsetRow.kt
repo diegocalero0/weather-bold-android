@@ -43,7 +43,6 @@ fun SunriseSunsetRow(
                 .padding(horizontal = 16.dp)
                 .semantics(mergeDescendants = false) {
                     heading()
-                    contentDescription = "Información de amanecer y atardecer"
                 },
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
@@ -72,7 +71,7 @@ private fun SunCard(
     Card(
         modifier =
             modifier.semantics(mergeDescendants = true) {
-                contentDescription = "$label a las $time"
+                contentDescription = "$label: $time"
             },
         shape = RoundedCornerShape(12.dp),
         colors =

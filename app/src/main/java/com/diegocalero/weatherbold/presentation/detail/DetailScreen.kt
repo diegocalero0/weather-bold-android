@@ -161,7 +161,10 @@ private fun ForecastContent(
                 Spacer(modifier = Modifier.height(16.dp))
                 SectionTitle(
                     title = stringResource(id = R.string.today_hourly),
-                    modifier = Modifier.padding(horizontal = 16.dp),
+                    modifier =
+                        Modifier
+                            .padding(horizontal = 16.dp)
+                            .semantics { heading() },
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 HourlyForecastRow(hours = todayForecast.hours)
@@ -181,7 +184,10 @@ private fun ForecastContent(
                 Spacer(modifier = Modifier.height(24.dp))
                 SectionTitle(
                     title = stringResource(id = R.string.next_days),
-                    modifier = Modifier.padding(horizontal = 16.dp),
+                    modifier =
+                        Modifier
+                            .padding(horizontal = 16.dp)
+                            .semantics { heading() },
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
@@ -255,18 +261,23 @@ private fun TemperatureInfo(
     forecast: Forecast,
     modifier: Modifier = Modifier,
 ) {
+    val tempDescription =
+        stringResource(
+            id = R.string.weather_condition_temp,
+            forecast.currentWeather.condition.text,
+            forecast.currentWeather.tempC.toInt(),
+        )
+
     Row(
-        modifier = modifier,
+        modifier =
+            modifier.semantics(mergeDescendants = true) {
+                contentDescription = tempDescription
+            },
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
     ) {
         Text(
-            modifier =
-                Modifier
-                    .weight(1f)
-                    .semantics {
-                        contentDescription = "Temperatura actual: ${forecast.currentWeather.tempC.toInt()} grados celsius"
-                    },
+            modifier = Modifier.weight(1f),
             text = "${forecast.currentWeather.tempC.toInt()}°",
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
@@ -297,8 +308,21 @@ private fun WeatherChips(
     forecast: Forecast,
     modifier: Modifier = Modifier,
 ) {
+    val weatherSummary =
+        stringResource(
+            id = R.string.current_weather_summary,
+            forecast.currentWeather.tempC.toInt(),
+            forecast.currentWeather.condition.text,
+            forecast.currentWeather.feelsLikeC.toInt(),
+            forecast.currentWeather.humidity,
+            forecast.currentWeather.windKph.toInt(),
+        )
+
     Row(
-        modifier = modifier,
+        modifier =
+            modifier.semantics(mergeDescendants = false) {
+                contentDescription = weatherSummary
+            },
         horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
         WeatherInfoChip(
