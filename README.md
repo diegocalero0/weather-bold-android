@@ -69,7 +69,9 @@ La aplicación detecta automáticamente el idioma del dispositivo y ajusta toda 
 
 **Evidencias:**
 
-_(Aquí puedes agregar capturas de pantalla mostrando la app en ambos idiomas)_
+| Español | Inglés |
+|----------------|----------------|
+| <img width="1344" height="2992" alt="Screenshot_1770435661" src="https://github.com/user-attachments/assets/865e3b74-cb5c-4e72-9500-545c6418d5e3" /> | <img width="1344" height="2992" alt="Screenshot_1770435581" src="https://github.com/user-attachments/assets/d566b815-023c-49b9-865c-545216d1df27" /> |
 
 ---
 
@@ -85,7 +87,9 @@ Tema adaptable que respeta las preferencias del sistema del usuario con diseño 
 
 **Evidencias:**
 
-_(Aquí puedes agregar capturas de pantalla del modo día y noche)_
+| Modo día | Modo noche |
+|----------------|----------------|
+| <img width="1344" height="2992" alt="Screenshot_1770435719" src="https://github.com/user-attachments/assets/7eb8e8f5-f0f5-45b9-8484-6630c5006c5e" /> | <img width="1344" height="2992" alt="Screenshot_1770435581" src="https://github.com/user-attachments/assets/d566b815-023c-49b9-865c-545216d1df27" /> |
 
 ---
 
@@ -109,7 +113,7 @@ Implementación completa de accesibilidad siguiendo las mejores prácticas de An
 
 **Evidencias:**
 
-_(Aquí puedes agregar capturas o videos mostrando TalkBack en acción)_
+https://github.com/user-attachments/assets/266b4bfc-eb86-4617-b3f6-39ca23b3d044
 
 ---
 
@@ -135,7 +139,17 @@ sealed class Result<out T> {
 
 **Evidencias:**
 
-_(Aquí puedes agregar capturas mostrando cada estado)_
+**Búsqueda**
+
+| Idle | Loading | Error | Success |
+|--------|-------------|-----|-----|
+| <img width="1344" height="2992" alt="Screenshot_1770436462" src="https://github.com/user-attachments/assets/676ec085-0c49-4ebb-abf8-6c907c935686" /> | <img width="1344" height="2992" alt="Screenshot_1770436556" src="https://github.com/user-attachments/assets/dc621059-618e-484b-8211-b79bc24bd509" /> | <img width="1344" height="2992" alt="Screenshot_1770436672" src="https://github.com/user-attachments/assets/074442b3-91b9-478e-84bc-6727b0295620" /> | <img width="1344" height="2992" alt="Screenshot_1770436707" src="https://github.com/user-attachments/assets/710fcf07-7ec4-4343-a0e6-8f6d726c8e8d" /> |
+
+**Detalle**
+
+| Loading | Error | Success |
+|--------|-----|-----|
+| <img width="1344" height="2992" alt="Screenshot_1770436804" src="https://github.com/user-attachments/assets/9a96022b-c3e8-45c4-b544-c7d6cc05857c" /> | <img width="1344" height="2992" alt="Screenshot_1770436833" src="https://github.com/user-attachments/assets/16c629db-192c-4e87-8d64-84391e3fa8be" /> | <img width="1344" height="2992" alt="Screenshot_1770436818" src="https://github.com/user-attachments/assets/bd5b104e-2ab1-465a-b02e-5e2ee6e2ad0b" /> |
 
 ---
 
