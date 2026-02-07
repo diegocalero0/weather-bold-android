@@ -23,20 +23,21 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        val localProperties = Properties().apply {
-            val file = rootProject.file("local.properties")
-            if (file.exists()) load(file.inputStream())
-        }
+        val localProperties =
+            Properties().apply {
+                val file = rootProject.file("local.properties")
+                if (file.exists()) load(file.inputStream())
+            }
 
         buildConfigField(
             "String",
             "WEATHER_API_KEY",
-            "\"${localProperties.getProperty("WEATHER_API_KEY", "")}\""
+            "\"${localProperties.getProperty("WEATHER_API_KEY", "")}\"",
         )
         buildConfigField(
             "String",
             "WEATHER_BASE_URL",
-            "\"https://api.weatherapi.com/v1/\""
+            "\"https://api.weatherapi.com/v1/\"",
         )
     }
 
@@ -45,7 +46,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }

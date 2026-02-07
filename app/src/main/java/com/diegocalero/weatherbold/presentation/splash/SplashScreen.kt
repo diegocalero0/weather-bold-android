@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.diegocalero.weatherbold.R
@@ -30,43 +29,44 @@ import com.diegocalero.weatherbold.core.ui.theme.BoldGradientStart
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen(
-    onSplashFinished: () -> Unit
-) {
+fun SplashScreen(onSplashFinished: () -> Unit) {
     val alpha = remember { Animatable(0f) }
 
     LaunchedEffect(key1 = true) {
         alpha.animateTo(
             targetValue = 1f,
-            animationSpec = tween(durationMillis = 1000)
+            animationSpec = tween(durationMillis = 1000),
         )
         delay(1200L)
         onSplashFinished()
     }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        BoldGradientStart,
-                        BoldGradientEnd
-                    )
-                )
-            ),
-        contentAlignment = Alignment.Center
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .background(
+                    brush =
+                        Brush.verticalGradient(
+                            colors =
+                                listOf(
+                                    BoldGradientStart,
+                                    BoldGradientEnd,
+                                ),
+                        ),
+                ),
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             modifier = Modifier.alpha(alpha.value),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 text = stringResource(id = R.string.app_name),
                 color = Color.White,
                 fontSize = 28.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
             )
 
             Spacer(modifier = Modifier.height(2.dp))
@@ -74,14 +74,8 @@ fun SplashScreen(
             Text(
                 text = stringResource(id = R.string.splash_subtitle),
                 color = Color.White.copy(alpha = 0.7f),
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
             )
         }
     }
-}
-
-@Composable
-@Preview
-fun SplashPreview() {
-    SplashScreen {  }
 }

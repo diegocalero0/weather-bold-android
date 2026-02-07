@@ -12,15 +12,15 @@ suspend fun <T> safeApiCall(apiCall: suspend () -> T): Result<T> {
         Result.Error(
             AppException.ServerException(
                 code = e.code(),
-                message = e.message() ?: "Server error"
-            )
+                message = e.message() ?: "Server error",
+            ),
         )
     } catch (e: Exception) {
         Result.Error(
             AppException.UnknownException(
                 message = e.message ?: "Unknown error",
-                cause = e
-            )
+                cause = e,
+            ),
         )
     }
 }

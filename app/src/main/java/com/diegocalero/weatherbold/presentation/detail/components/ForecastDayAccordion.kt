@@ -37,30 +37,31 @@ fun ForecastDayAccordion(
     forecastDay: ForecastDay,
     isExpanded: Boolean,
     onToggle: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
         onClick = onToggle,
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        colors =
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+            ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
     ) {
         Column {
             DayHeader(
                 forecastDay = forecastDay,
-                isExpanded = isExpanded
+                isExpanded = isExpanded,
             )
 
             AnimatedVisibility(
                 visible = isExpanded,
                 enter = expandVertically(),
-                exit = shrinkVertically()
+                exit = shrinkVertically(),
             ) {
                 Column(
-                    modifier = Modifier.padding(bottom = 12.dp)
+                    modifier = Modifier.padding(bottom = 12.dp),
                 ) {
                     DayDetails(forecastDay = forecastDay)
 
@@ -76,37 +77,39 @@ fun ForecastDayAccordion(
 @Composable
 private fun DayHeader(
     forecastDay: ForecastDay,
-    isExpanded: Boolean
+    isExpanded: Boolean,
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         AsyncImage(
             model = forecastDay.condition.iconUrl,
             contentDescription = forecastDay.condition.text,
-            modifier = Modifier.size(40.dp)
+            modifier = Modifier.size(40.dp),
         )
 
         Spacer(modifier = Modifier.width(12.dp))
 
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = formatDayName(
-                    dateString = forecastDay.date,
-                    todayLabel = stringResource(id = R.string.today),
-                    tomorrowLabel = stringResource(id = R.string.tomorrow)
-                ),
+                text =
+                    formatDayName(
+                        dateString = forecastDay.date,
+                        todayLabel = stringResource(id = R.string.today),
+                        tomorrowLabel = stringResource(id = R.string.tomorrow),
+                    ),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
             Text(
                 text = forecastDay.condition.text,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
             )
         }
 
@@ -115,12 +118,12 @@ private fun DayHeader(
                 text = "${forecastDay.avgTempC.toInt()}°",
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
             Text(
                 text = "${forecastDay.minTempC.toInt()}° / ${forecastDay.maxTempC.toInt()}°",
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
             )
         }
 
@@ -129,7 +132,7 @@ private fun DayHeader(
         Icon(
             imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
             contentDescription = if (isExpanded) stringResource(id = R.string.collapse) else stringResource(id = R.string.expand),
-            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
         )
     }
 }
@@ -137,22 +140,23 @@ private fun DayHeader(
 @Composable
 private fun DayDetails(forecastDay: ForecastDay) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
         DetailChip(
             label = stringResource(id = R.string.humidity),
-            value = "${forecastDay.avgHumidity.toInt()}%"
+            value = "${forecastDay.avgHumidity.toInt()}%",
         )
         DetailChip(
             label = stringResource(id = R.string.wind),
-            value = "${forecastDay.maxWindKph.toInt()} km/h"
+            value = "${forecastDay.maxWindKph.toInt()} km/h",
         )
         DetailChip(
             label = stringResource(id = R.string.rain),
-            value = "${forecastDay.chanceOfRain.toInt()}%"
+            value = "${forecastDay.chanceOfRain.toInt()}%",
         )
     }
 }
@@ -160,21 +164,20 @@ private fun DayDetails(forecastDay: ForecastDay) {
 @Composable
 private fun DetailChip(
     label: String,
-    value: String
+    value: String,
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = label,
             style = MaterialTheme.typography.labelSmall,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = value,
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
         )
     }
 }
-

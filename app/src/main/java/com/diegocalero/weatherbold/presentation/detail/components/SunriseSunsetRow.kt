@@ -31,25 +31,26 @@ import com.diegocalero.weatherbold.core.ui.theme.SunsetStart
 fun SunriseSunsetRow(
     sunrise: String,
     sunset: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         SunCard(
             label = stringResource(id = R.string.sunrise),
             time = sunrise,
             gradient = Brush.horizontalGradient(listOf(SunriseStart, SunriseEnd)),
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
         SunCard(
             label = stringResource(id = R.string.sunset),
             time = sunset,
             gradient = Brush.horizontalGradient(listOf(SunsetStart, SunsetEnd)),
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
         )
     }
 }
@@ -59,34 +60,36 @@ private fun SunCard(
     label: String,
     time: String,
     gradient: Brush,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+        colors =
+            CardDefaults.cardColors(
+                containerColor = Color.Transparent,
+            ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(gradient)
-                .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .background(gradient)
+                    .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = label,
                 style = MaterialTheme.typography.labelSmall,
-                color = Color.White.copy(alpha = 0.8f)
+                color = Color.White.copy(alpha = 0.8f),
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = time,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
-                color = Color.White
+                color = Color.White,
             )
         }
     }

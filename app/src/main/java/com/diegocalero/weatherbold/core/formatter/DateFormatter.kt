@@ -5,15 +5,20 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.util.Locale
 
-fun formatDayName(dateString: String, todayLabel: String, tomorrowLabel: String): String {
+fun formatDayName(
+    dateString: String,
+    todayLabel: String,
+    tomorrowLabel: String,
+): String {
     return try {
         val date = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE)
         val today = LocalDate.now()
         when (date) {
             today -> todayLabel
             today.plusDays(1) -> tomorrowLabel
-            else -> date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
-                .replaceFirstChar { it.uppercase() }
+            else ->
+                date.dayOfWeek.getDisplayName(TextStyle.FULL, Locale.getDefault())
+                    .replaceFirstChar { it.uppercase() }
         }
     } catch (e: Exception) {
         dateString

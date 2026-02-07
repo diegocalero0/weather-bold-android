@@ -11,31 +11,35 @@ import com.diegocalero.weatherbold.domain.repository.WeatherRepository
 import java.util.Locale
 import javax.inject.Inject
 
-class WeatherRepositoryImpl @Inject constructor(
-    private val apiService: WeatherApiService
-) : WeatherRepository {
+class WeatherRepositoryImpl
+    @Inject
+    constructor(
+        private val apiService: WeatherApiService,
+    ) : WeatherRepository {
+        private val lang: String?
+            get() = Locale.getDefault().language.takeIf { it == "es" }
 
-    private val lang: String?
-        get() = Locale.getDefault().language.takeIf { it == "es" }
+        override suspend fun searchLocations(query: String): Result<List<Location>> {
+            return safeApiCall {
+                apiService.searchLocations(
+                    apiKey = BuildConfig.WEATHER_API_KEY,
+                    query = query,
+                    lang = lang,
+                ).map { it.toDomain() }
+            }
+        }
 
-    override suspend fun searchLocations(query: String): Result<List<Location>> {
-        return safeApiCall {
-            apiService.searchLocations(
-                apiKey = BuildConfig.WEATHER_API_KEY,
-                query = query,
-                lang = lang
-            ).map { it.toDomain() }
+        override suspend fun getForecast(
+            query: String,
+            days: Int,
+        ): Result<Forecast> {
+            return safeApiCall {
+                apiService.getForecast(
+                    apiKey = BuildConfig.WEATHER_API_KEY,
+                    query = query,
+                    days = days,
+                    lang = lang,
+                ).toDomain()
+            }
         }
     }
-
-    override suspend fun getForecast(query: String, days: Int): Result<Forecast> {
-        return safeApiCall {
-            apiService.getForecast(
-                apiKey = BuildConfig.WEATHER_API_KEY,
-                query = query,
-                days = days,
-                lang = lang
-            ).toDomain()
-        }
-    }
-}

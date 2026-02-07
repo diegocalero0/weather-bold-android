@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class ForecastResponseDto(
     @SerializedName("location") val location: ForecastLocationDto,
     @SerializedName("current") val current: CurrentWeatherDto,
-    @SerializedName("forecast") val forecast: ForecastDto
+    @SerializedName("forecast") val forecast: ForecastDto,
 )
 
 data class ForecastLocationDto(
@@ -14,7 +14,7 @@ data class ForecastLocationDto(
     @SerializedName("country") val country: String,
     @SerializedName("lat") val lat: Double,
     @SerializedName("lon") val lon: Double,
-    @SerializedName("localtime") val localtime: String
+    @SerializedName("localtime") val localtime: String,
 )
 
 data class CurrentWeatherDto(
@@ -22,18 +22,18 @@ data class CurrentWeatherDto(
     @SerializedName("feelslike_c") val feelsLikeC: Double,
     @SerializedName("humidity") val humidity: Int,
     @SerializedName("wind_kph") val windKph: Double,
-    @SerializedName("condition") val condition: ConditionDto
+    @SerializedName("condition") val condition: ConditionDto,
 )
 
 data class ForecastDto(
-    @SerializedName("forecastday") val forecastDay: List<ForecastDayDto>
+    @SerializedName("forecastday") val forecastDay: List<ForecastDayDto>,
 )
 
 data class ForecastDayDto(
     @SerializedName("date") val date: String,
     @SerializedName("day") val day: DayDto,
     @SerializedName("astro") val astro: AstroDto,
-    @SerializedName("hour") val hour: List<HourDto>
+    @SerializedName("hour") val hour: List<HourDto>,
 )
 
 data class DayDto(
@@ -43,12 +43,12 @@ data class DayDto(
     @SerializedName("avghumidity") val avgHumidity: Double,
     @SerializedName("maxwind_kph") val maxWindKph: Double,
     @SerializedName("daily_chance_of_rain") val chanceOfRain: Double,
-    @SerializedName("condition") val condition: ConditionDto
+    @SerializedName("condition") val condition: ConditionDto,
 )
 
 data class AstroDto(
     @SerializedName("sunrise") val sunrise: String,
-    @SerializedName("sunset") val sunset: String
+    @SerializedName("sunset") val sunset: String,
 )
 
 data class HourDto(
@@ -57,11 +57,11 @@ data class HourDto(
     @SerializedName("condition") val condition: ConditionDto,
     @SerializedName("chance_of_rain") val chanceOfRain: Double,
     @SerializedName("humidity") val humidity: Int,
-    @SerializedName("wind_kph") val windKph: Double
+    @SerializedName("wind_kph") val windKph: Double,
 )
 
 data class ConditionDto(
     @SerializedName("text") val text: String,
     @SerializedName("icon") val icon: String,
-    @SerializedName("code") val code: Int
+    @SerializedName("code") val code: Int,
 )

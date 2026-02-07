@@ -14,7 +14,7 @@ import com.diegocalero.weatherbold.presentation.splash.SplashScreen
 fun WeatherNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Route.Splash.route
+        startDestination = Route.Splash.route,
     ) {
         composable(route = Route.Splash.route) {
             SplashScreen(
@@ -22,7 +22,7 @@ fun WeatherNavGraph(navController: NavHostController) {
                     navController.navigate(Route.Search.route) {
                         popUpTo(Route.Splash.route) { inclusive = true }
                     }
-                }
+                },
             )
         }
 
@@ -30,25 +30,26 @@ fun WeatherNavGraph(navController: NavHostController) {
             SearchScreen(
                 onLocationClick = { location ->
                     navController.navigate(
-                        Route.Detail.createRouteByLatLng(location)
+                        Route.Detail.createRouteByLatLng(location),
                     )
-                }
+                },
             )
         }
 
         composable(
             route = Route.Detail.route,
-            arguments = listOf(
-                navArgument("query") { type = NavType.StringType },
-                navArgument("locationName") { type = NavType.StringType }
-            )
+            arguments =
+                listOf(
+                    navArgument("query") { type = NavType.StringType },
+                    navArgument("locationName") { type = NavType.StringType },
+                ),
         ) { backStackEntry ->
             val query = backStackEntry.arguments?.getString("query").orEmpty()
             val locationName = backStackEntry.arguments?.getString("locationName").orEmpty()
             DetailScreen(
                 locationName = locationName,
                 query = query,
-                onBackClick = { navController.popBackStack() }
+                onBackClick = { navController.popBackStack() },
             )
         }
     }

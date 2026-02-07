@@ -59,7 +59,7 @@ fun DetailScreen(
     locationName: String,
     query: String,
     onBackClick: () -> Unit,
-    viewModel: DetailViewModel = hiltViewModel()
+    viewModel: DetailViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val expandedDays by viewModel.expandedDays.collectAsStateWithLifecycle()
@@ -77,13 +77,13 @@ fun DetailScreen(
                                 fontWeight = FontWeight.Bold,
                                 color = Color.White,
                                 maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
+                                overflow = TextOverflow.Ellipsis,
                             )
 
                             Text(
                                 text = "${forecast.locationName} - ${forecast.region}, ${forecast.country}",
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = Color.White.copy(alpha = 0.7f)
+                                color = Color.White.copy(alpha = 0.7f),
                             )
                         }
                     }
@@ -93,15 +93,16 @@ fun DetailScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(id = R.string.back),
-                            tint = Color.White
+                            tint = Color.White,
                         )
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.secondary,
-                )
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                    ),
             )
-        }
+        },
     ) { paddingValues ->
         when (uiState) {
             is UiState.Loading -> {
@@ -113,13 +114,13 @@ fun DetailScreen(
                     forecast = forecast,
                     expandedDays = expandedDays,
                     onDayToggle = viewModel::toggleDayExpanded,
-                    modifier = Modifier.padding(paddingValues)
+                    modifier = Modifier.padding(paddingValues),
                 )
             }
             is UiState.Error -> {
                 ErrorContent(
                     message = (uiState as UiState.Error).message,
-                    onRetry = { viewModel.retry(query) }
+                    onRetry = { viewModel.retry(query) },
                 )
             }
             is UiState.Idle -> { }
@@ -133,17 +134,18 @@ private fun ForecastContent(
     forecast: Forecast,
     expandedDays: Set<String>,
     onDayToggle: (String) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     val todayForecast = forecast.forecastDays.firstOrNull()
-    val upcomingDays = if (forecast.forecastDays.size > 1) {
-        forecast.forecastDays.subList(1, forecast.forecastDays.size)
-    } else {
-        emptyList()
-    }
+    val upcomingDays =
+        if (forecast.forecastDays.size > 1) {
+            forecast.forecastDays.subList(1, forecast.forecastDays.size)
+        } else {
+            emptyList()
+        }
 
     LazyColumn(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize(),
     ) {
         stickyHeader {
             CurrentWeatherHeader(forecast = forecast)
@@ -154,7 +156,7 @@ private fun ForecastContent(
                 Spacer(modifier = Modifier.height(16.dp))
                 SectionTitle(
                     title = stringResource(id = R.string.today_hourly),
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp),
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 HourlyForecastRow(hours = todayForecast.hours)
@@ -164,7 +166,7 @@ private fun ForecastContent(
                 Spacer(modifier = Modifier.height(16.dp))
                 SunriseSunsetRow(
                     sunrise = todayForecast.sunrise,
-                    sunset = todayForecast.sunset
+                    sunset = todayForecast.sunset,
                 )
             }
         }
@@ -174,20 +176,20 @@ private fun ForecastContent(
                 Spacer(modifier = Modifier.height(24.dp))
                 SectionTitle(
                     title = stringResource(id = R.string.next_days),
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp),
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
 
             items(
                 items = upcomingDays,
-                key = { it.date }
+                key = { it.date },
             ) { day ->
                 ForecastDayAccordion(
                     forecastDay = day,
                     isExpanded = expandedDays.contains(day.date),
                     onToggle = { onDayToggle(day.date) },
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
                 )
             }
         }
@@ -203,21 +205,23 @@ private fun CurrentWeatherHeader(forecast: Forecast) {
     val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(
-                brush = Brush.verticalGradient(
-                    colors = listOf(BoldGradientStart, BoldGradientEnd)
-                ),
-                shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
-            )
-            .padding(horizontal = 24.dp, vertical = 20.dp)
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(
+                    brush =
+                        Brush.verticalGradient(
+                            colors = listOf(BoldGradientStart, BoldGradientEnd),
+                        ),
+                    shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp),
+                )
+                .padding(horizontal = 24.dp, vertical = 20.dp),
     ) {
         if (isLandscape) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
+                horizontalArrangement = Arrangement.SpaceEvenly,
             ) {
                 TemperatureInfo(forecast = forecast, modifier = Modifier.weight(1f))
                 WeatherChips(forecast = forecast, modifier = Modifier.weight(1f))
@@ -225,13 +229,13 @@ private fun CurrentWeatherHeader(forecast: Forecast) {
         } else {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 TemperatureInfo(forecast = forecast)
                 Spacer(modifier = Modifier.height(12.dp))
                 WeatherChips(
                     forecast = forecast,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
         }
@@ -241,12 +245,12 @@ private fun CurrentWeatherHeader(forecast: Forecast) {
 @Composable
 private fun TemperatureInfo(
     forecast: Forecast,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
     ) {
         Text(
             modifier = Modifier.weight(1f),
@@ -254,7 +258,7 @@ private fun TemperatureInfo(
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         Spacer(modifier = Modifier.width(16.dp))
@@ -263,13 +267,13 @@ private fun TemperatureInfo(
             AsyncImage(
                 model = forecast.currentWeather.condition.iconUrl,
                 contentDescription = forecast.currentWeather.condition.text,
-                modifier = Modifier.size(32.dp)
+                modifier = Modifier.size(32.dp),
             )
             Text(
                 text = forecast.currentWeather.condition.text,
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.White.copy(alpha = 0.9f),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
     }
@@ -278,23 +282,23 @@ private fun TemperatureInfo(
 @Composable
 private fun WeatherChips(
     forecast: Forecast,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.SpaceEvenly
+        horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
         WeatherInfoChip(
             label = stringResource(id = R.string.feels_like),
-            value = "${forecast.currentWeather.feelsLikeC.toInt()}°"
+            value = "${forecast.currentWeather.feelsLikeC.toInt()}°",
         )
         WeatherInfoChip(
             label = stringResource(id = R.string.humidity),
-            value = "${forecast.currentWeather.humidity}%"
+            value = "${forecast.currentWeather.humidity}%",
         )
         WeatherInfoChip(
             label = stringResource(id = R.string.wind),
-            value = "${forecast.currentWeather.windKph.toInt()} km/h"
+            value = "${forecast.currentWeather.windKph.toInt()} km/h",
         )
     }
 }
@@ -302,20 +306,20 @@ private fun WeatherChips(
 @Composable
 private fun WeatherInfoChip(
     label: String,
-    value: String
+    value: String,
 ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = label,
             style = MaterialTheme.typography.labelSmall,
-            color = Color.White.copy(alpha = 0.6f)
+            color = Color.White.copy(alpha = 0.6f),
         )
         Spacer(modifier = Modifier.height(2.dp))
         Text(
             text = value,
             style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.SemiBold,
-            color = Color.White
+            color = Color.White,
         )
     }
 }
@@ -323,14 +327,14 @@ private fun WeatherInfoChip(
 @Composable
 private fun SectionTitle(
     title: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text = title,
         style = MaterialTheme.typography.titleLarge,
         fontWeight = FontWeight.Bold,
         color = MaterialTheme.colorScheme.onBackground,
-        modifier = modifier
+        modifier = modifier,
     )
 }
 
@@ -338,10 +342,10 @@ private fun SectionTitle(
 private fun LoadingContent() {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator(
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
         )
     }
 }
@@ -349,26 +353,26 @@ private fun LoadingContent() {
 @Composable
 private fun ErrorContent(
     message: String,
-    onRetry: () -> Unit
+    onRetry: () -> Unit,
 ) {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(32.dp)
+            modifier = Modifier.padding(32.dp),
         ) {
             Text(
                 text = stringResource(id = R.string.search_error_icon),
-                style = MaterialTheme.typography.headlineLarge
+                style = MaterialTheme.typography.headlineLarge,
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = message,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.error,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
             Spacer(modifier = Modifier.height(16.dp))
             androidx.compose.material3.TextButton(onClick = onRetry) {

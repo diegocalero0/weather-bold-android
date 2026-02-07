@@ -6,12 +6,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherApiService {
-
     @GET("search.json")
     suspend fun searchLocations(
         @Query("key") apiKey: String,
         @Query("q") query: String,
-        @Query("lang") lang: String? = null
+        @Query("lang") lang: String? = null,
     ): List<LocationDto>
 
     @GET("forecast.json")
@@ -19,6 +18,6 @@ interface WeatherApiService {
         @Query("key") apiKey: String,
         @Query("q") query: String,
         @Query("days") days: Int,
-        @Query("lang") lang: String? = null
+        @Query("lang") lang: String? = null,
     ): ForecastResponseDto
 }

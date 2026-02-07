@@ -17,7 +17,7 @@ fun ForecastResponseDto.toDomain(): Forecast {
         region = location.region,
         country = location.country,
         currentWeather = current.toDomain(),
-        forecastDays = forecast.forecastDay.map { it.toDomain() }
+        forecastDays = forecast.forecastDay.map { it.toDomain() },
     )
 }
 
@@ -27,7 +27,7 @@ fun CurrentWeatherDto.toDomain(): CurrentWeather {
         feelsLikeC = feelsLikeC,
         humidity = humidity,
         windKph = windKph,
-        condition = condition.toDomain()
+        condition = condition.toDomain(),
     )
 }
 
@@ -43,7 +43,7 @@ fun ForecastDayDto.toDomain(): ForecastDay {
         condition = day.condition.toDomain(),
         hours = hour.map { it.toDomain() },
         sunrise = astro.sunrise,
-        sunset = astro.sunset
+        sunset = astro.sunset,
     )
 }
 
@@ -54,14 +54,14 @@ fun HourDto.toDomain(): HourForecast {
         condition = condition.toDomain(),
         chanceOfRain = chanceOfRain,
         humidity = humidity,
-        windKph = windKph
+        windKph = windKph,
     )
 }
 
 fun ConditionDto.toDomain(): WeatherCondition {
     return WeatherCondition(
         text = text,
-        iconUrl = "https:${icon}",
-        code = code
+        iconUrl = "https:$icon",
+        code = code,
     )
 }

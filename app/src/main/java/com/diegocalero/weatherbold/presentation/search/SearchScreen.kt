@@ -57,7 +57,7 @@ import com.diegocalero.weatherbold.domain.model.Location
 @Composable
 fun SearchScreen(
     onLocationClick: (Location) -> Unit,
-    viewModel: SearchViewModel = hiltViewModel()
+    viewModel: SearchViewModel = hiltViewModel(),
 ) {
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -68,34 +68,37 @@ fun SearchScreen(
                 title = {
                     SearchHeader()
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.secondary,
-                )
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.secondary,
+                    ),
             )
         },
     ) { paddingValues ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-                .consumeWindowInsets(paddingValues)
-                .imePadding()
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+                    .consumeWindowInsets(paddingValues)
+                    .imePadding(),
         ) {
             SearchBar(
                 query = searchQuery,
                 onQueryChanged = viewModel::onSearchQueryChanged,
-                onClearClick = viewModel::onClearSearch
+                onClearClick = viewModel::onClearSearch,
             )
             Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(16.dp)
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.background)
+                        .padding(16.dp),
             ) {
                 SearchContent(
                     uiState = uiState,
-                    onLocationClick = onLocationClick
+                    onLocationClick = onLocationClick,
                 )
             }
         }
@@ -108,13 +111,13 @@ private fun SearchHeader() {
         Text(
             text = stringResource(id = R.string.search_title),
             style = MaterialTheme.typography.headlineLarge,
-            color = Color.White
+            color = Color.White,
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = stringResource(id = R.string.search_subtitle),
             style = MaterialTheme.typography.bodyMedium,
-            color = Color.White
+            color = Color.White,
         )
     }
 }
@@ -123,17 +126,21 @@ private fun SearchHeader() {
 private fun SearchBar(
     query: String,
     onQueryChanged: (String) -> Unit,
-    onClearClick: () -> Unit
+    onClearClick: () -> Unit,
 ) {
-    Box(modifier = Modifier
-        .fillMaxWidth()
-        .background(
-            brush = Brush.verticalGradient(
-                colors = listOf(BoldGradientStart, BoldGradientEnd)
-            ),
-            shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp)
-        )
-        .padding(horizontal = 24.dp, vertical = 20.dp)) {
+    Box(
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .background(
+                    brush =
+                        Brush.verticalGradient(
+                            colors = listOf(BoldGradientStart, BoldGradientEnd),
+                        ),
+                    shape = RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp),
+                )
+                .padding(horizontal = 24.dp, vertical = 20.dp),
+    ) {
         OutlinedTextField(
             value = query,
             onValueChange = onQueryChanged,
@@ -145,7 +152,7 @@ private fun SearchBar(
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = null,
-                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                    tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                 )
             },
             trailingIcon = {
@@ -154,19 +161,20 @@ private fun SearchBar(
                         Icon(
                             imageVector = Icons.Default.Clear,
                             contentDescription = stringResource(id = R.string.clear_search),
-                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                            tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
                         )
                     }
                 }
             },
             singleLine = true,
             shape = RoundedCornerShape(12.dp),
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = MaterialTheme.colorScheme.primary,
-                unfocusedBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f),
-                focusedContainerColor = MaterialTheme.colorScheme.surface,
-                unfocusedContainerColor = MaterialTheme.colorScheme.surface
-            )
+            colors =
+                OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f),
+                    focusedContainerColor = MaterialTheme.colorScheme.surface,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                ),
         )
     }
 }
@@ -174,7 +182,7 @@ private fun SearchBar(
 @Composable
 private fun SearchContent(
     uiState: UiState<List<Location>>,
-    onLocationClick: (Location) -> Unit
+    onLocationClick: (Location) -> Unit,
 ) {
     when (uiState) {
         is UiState.Idle -> {
@@ -186,7 +194,7 @@ private fun SearchContent(
         is UiState.Success -> {
             LocationList(
                 locations = uiState.data,
-                onLocationClick = onLocationClick
+                onLocationClick = onLocationClick,
             )
         }
         is UiState.Error -> {
@@ -199,23 +207,23 @@ private fun SearchContent(
 private fun IdleContent() {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Icon(
                 imageVector = Icons.Default.Search,
                 contentDescription = null,
                 modifier = Modifier.size(64.dp),
-                tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
+                tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f),
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = stringResource(id = R.string.search_idle_message),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
             )
         }
     }
@@ -225,10 +233,10 @@ private fun IdleContent() {
 private fun LoadingContent() {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator(
-            color = MaterialTheme.colorScheme.primary
+            color = MaterialTheme.colorScheme.primary,
         )
     }
 }
@@ -237,20 +245,20 @@ private fun LoadingContent() {
 private fun ErrorContent(message: String) {
     Box(
         modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Column(
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = stringResource(id = R.string.search_error_icon),
-                style = MaterialTheme.typography.headlineLarge
+                style = MaterialTheme.typography.headlineLarge,
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = message,
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.error
+                color = MaterialTheme.colorScheme.error,
             )
         }
     }
@@ -259,20 +267,20 @@ private fun ErrorContent(message: String) {
 @Composable
 private fun LocationList(
     locations: List<Location>,
-    onLocationClick: (Location) -> Unit
+    onLocationClick: (Location) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(8.dp),
-        contentPadding = PaddingValues(vertical = 8.dp)
+        contentPadding = PaddingValues(vertical = 8.dp),
     ) {
         items(
             items = locations,
-            key = { it.id }
+            key = { it.id },
         ) { location ->
             LocationItem(
                 location = location,
-                onClick = { onLocationClick(location) }
+                onClick = { onLocationClick(location) },
             )
         }
     }
@@ -281,29 +289,32 @@ private fun LocationList(
 @Composable
 private fun LocationItem(
     location: Location,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier =
+            Modifier
+                .fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
+        colors =
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+            ),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        onClick = onClick
+        onClick = onClick,
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            modifier =
+                Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
                 imageVector = Icons.Default.LocationOn,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.size(24.dp)
+                modifier = Modifier.size(24.dp),
             )
 
             Spacer(modifier = Modifier.width(12.dp))
@@ -314,7 +325,7 @@ private fun LocationItem(
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
@@ -322,7 +333,7 @@ private fun LocationItem(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                     maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    overflow = TextOverflow.Ellipsis,
                 )
             }
         }

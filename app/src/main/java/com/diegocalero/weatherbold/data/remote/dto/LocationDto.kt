@@ -9,5 +9,5 @@ data class LocationDto(
     @SerializedName("country") val country: String,
     @SerializedName("lat") val lat: Double,
     @SerializedName("lon") val lon: Double,
-    @SerializedName("url") val url: String
+    @SerializedName("url") val url: String,
 )

@@ -15,46 +15,48 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DetailViewModel @Inject constructor(
-    private val getForecastUseCase: GetForecastUseCase,
-    savedStateHandle: SavedStateHandle
-) : ViewModel() {
+class DetailViewModel
+    @Inject
+    constructor(
+        private val getForecastUseCase: GetForecastUseCase,
+        savedStateHandle: SavedStateHandle,
+    ) : ViewModel() {
+        private val _uiState = MutableStateFlow<UiState<Forecast>>(UiState.Loading)
+        val uiState: StateFlow<UiState<Forecast>> = _uiState.asStateFlow()
 
-    private val _uiState = MutableStateFlow<UiState<Forecast>>(UiState.Loading)
-    val uiState: StateFlow<UiState<Forecast>> = _uiState.asStateFlow()
+        private val _expandedDays = MutableStateFlow<Set<String>>(emptySet())
+        val expandedDays: StateFlow<Set<String>> = _expandedDays.asStateFlow()
 
-    private val _expandedDays = MutableStateFlow<Set<String>>(emptySet())
-    val expandedDays: StateFlow<Set<String>> = _expandedDays.asStateFlow()
-
-    init {
-        val query = savedStateHandle.get<String>("query").orEmpty()
-        loadForecast(query)
-    }
-
-    fun toggleDayExpanded(date: String) {
-        _expandedDays.value = _expandedDays.value.toMutableSet().apply {
-            if (contains(date)) remove(date) else add(date)
+        init {
+            val query = savedStateHandle.get<String>("query").orEmpty()
+            loadForecast(query)
         }
-    }
 
-    fun retry(query: String) {
-        loadForecast(query)
-    }
+        fun toggleDayExpanded(date: String) {
+            _expandedDays.value =
+                _expandedDays.value.toMutableSet().apply {
+                    if (contains(date)) remove(date) else add(date)
+                }
+        }
 
-    private fun loadForecast(query: String) {
-        viewModelScope.launch {
-            _uiState.value = UiState.Loading
-            when (val result = getForecastUseCase(query)) {
-                is Result.Success -> {
-                    _uiState.value = UiState.Success(result.data)
-                }
-                is Result.Error -> {
-                    _uiState.value = UiState.Error(result.exception.message ?: "Unknown error")
-                }
-                is Result.Loading -> {
-                    _uiState.value = UiState.Loading
+        fun retry(query: String) {
+            loadForecast(query)
+        }
+
+        private fun loadForecast(query: String) {
+            viewModelScope.launch {
+                _uiState.value = UiState.Loading
+                when (val result = getForecastUseCase(query)) {
+                    is Result.Success -> {
+                        _uiState.value = UiState.Success(result.data)
+                    }
+                    is Result.Error -> {
+                        _uiState.value = UiState.Error(result.exception.message ?: "Unknown error")
+                    }
+                    is Result.Loading -> {
+                        _uiState.value = UiState.Loading
+                    }
                 }
             }
         }
     }
-}

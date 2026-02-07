@@ -5,7 +5,7 @@ data class Forecast(
     val region: String,
     val country: String,
     val currentWeather: CurrentWeather,
-    val forecastDays: List<ForecastDay>
+    val forecastDays: List<ForecastDay>,
 )
 
 data class CurrentWeather(
@@ -13,7 +13,7 @@ data class CurrentWeather(
     val feelsLikeC: Double,
     val humidity: Int,
     val windKph: Double,
-    val condition: WeatherCondition
+    val condition: WeatherCondition,
 )
 
 data class ForecastDay(
@@ -27,7 +27,7 @@ data class ForecastDay(
     val condition: WeatherCondition,
     val hours: List<HourForecast>,
     val sunrise: String,
-    val sunset: String
+    val sunset: String,
 )
 
 data class HourForecast(
@@ -36,11 +36,11 @@ data class HourForecast(
     val condition: WeatherCondition,
     val chanceOfRain: Double,
     val humidity: Int,
-    val windKph: Double
+    val windKph: Double,
 )
 
 data class WeatherCondition(
     val text: String,
     val iconUrl: String,
-    val code: Int
+    val code: Int,
 )

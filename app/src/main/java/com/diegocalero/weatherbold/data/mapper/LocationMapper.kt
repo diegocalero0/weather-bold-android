@@ -10,6 +10,6 @@ fun LocationDto.toDomain(): Location {
         region = region,
         country = country,
         lat = lat,
-        lon = lon
+        lon = lon,
     )
 }

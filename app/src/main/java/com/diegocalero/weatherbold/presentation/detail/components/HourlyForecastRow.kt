@@ -27,16 +27,16 @@ import com.diegocalero.weatherbold.domain.model.HourForecast
 @Composable
 fun HourlyForecastRow(
     hours: List<HourForecast>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyRow(
         modifier = modifier,
         contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         items(
             items = hours,
-            key = { it.time }
+            key = { it.time },
         ) { hour ->
             HourItem(hour = hour)
         }
@@ -47,21 +47,23 @@ fun HourlyForecastRow(
 private fun HourItem(hour: HourForecast) {
     Card(
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
+        colors =
+            CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+            ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
     ) {
         Column(
-            modifier = Modifier
-                .width(72.dp)
-                .padding(vertical = 12.dp, horizontal = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                Modifier
+                    .width(72.dp)
+                    .padding(vertical = 12.dp, horizontal = 8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = formatHour(hour.time),
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
             )
 
             Spacer(modifier = Modifier.height(6.dp))
@@ -69,7 +71,7 @@ private fun HourItem(hour: HourForecast) {
             AsyncImage(
                 model = hour.condition.iconUrl,
                 contentDescription = hour.condition.text,
-                modifier = Modifier.size(36.dp)
+                modifier = Modifier.size(36.dp),
             )
 
             Spacer(modifier = Modifier.height(6.dp))
@@ -78,7 +80,7 @@ private fun HourItem(hour: HourForecast) {
                 text = "${hour.tempC.toInt()}°",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
             )
         }
     }
